@@ -88,3 +88,116 @@ function dibujarLinea(x1, y1, x2, y2, color = "black", grosor = 2) {
 
     ctx.stroke();
 }
+// Funcion para calcular el codigo de region, en que parte del plano se encuentra el punto
+function calcularCodigo(x, y) {
+
+    let codigo = INSIDE;
+
+    if (x < xmin) {
+        codigo |= LEFT;
+    }
+    else if (x > xmax) {
+        codigo |= RIGHT;
+    }
+
+    if (y < ymin) {
+        codigo |= TOP;
+    }
+    else if (y > ymax) {
+        codigo |= BOTTOM;
+    }
+
+    return codigo;
+}
+// Funcion para el algoritmo de Cohen Sutherland 
+function cohenSutherland(x1, y1, x2, y2) {
+
+    let codigo1 = calcularCodigo(x1, y1);
+    let codigo2 = calcularCodigo(x2, y2);
+
+    let aceptada = false;
+
+    while (true) {
+
+        // ACEPTACIÓN TRIVIAL
+        if ((codigo1 === 0) && (codigo2 === 0)) {
+
+            aceptada = true;
+            break;
+        }
+
+        // RECHAZO TRIVIAL
+        else if (codigo1 & codigo2) {
+
+            break;
+        }
+
+        // RECORTE
+        else {
+
+            let codigoExterno;
+            let x;
+            let y;
+
+            if (codigo1 !== 0) {
+                codigoExterno = codigo1;
+            }
+            else {
+                codigoExterno = codigo2;
+            }
+
+            // ARRIBA
+            if (codigoExterno & TOP) {
+
+                x = x1 + (x2 - x1) * (ymin - y1) / (y2 - y1);
+                y = ymin;
+            }
+
+            // ABAJO
+            else if (codigoExterno & BOTTOM) {
+
+}
+        }
+    }
+}
+// mostrar la escena 
+function mostrarEscena() {
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    dibujarViewport(xmin, ymin, xmax, ymax);
+
+    const escena = escenas[indiceEscena];
+
+    // Línea original
+    dibujarLinea(
+        escena.x1,
+        escena.y1,
+        escena.x2,
+        escena.y2,
+        "red",
+        1
+    );
+
+    // Línea recortada
+    const resultado = cohenSutherland(
+        escena.x1,
+        escena.y1,
+        escena.x2,
+        escena.y2
+    );
+
+    if (resultado.aceptada) {
+
+        dibujarLinea(
+            resultado.x1,
+            resultado.y1,
+            resultado.x2,
+            resultado.y2,
+            "green",
+            3
+        );
+    }
+
+    document.getElementById("infoCaso").innerText = escena.nombre;
+}
