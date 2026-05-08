@@ -58,3 +58,33 @@ const escenas = [
 ];
 
 let indiceEscena = 0;
+// FUNCION 1 para el viewport 
+function convertirY(y) {
+
+    return canvas.height - y;
+}
+
+function dibujarViewport(xmin, ymin, xmax, ymax) {
+
+    ctx.strokeStyle = "blue";
+    ctx.lineWidth = 2;
+
+    ctx.strokeRect(
+        xmin,
+        convertirY(ymax),
+        xmax - xmin,
+        ymax - ymin
+    );
+}
+// FUNCION 2 para dibuar las lineas
+function dibujarLinea(x1, y1, x2, y2, color = "black", grosor = 2) {
+
+    ctx.beginPath();
+    ctx.moveTo(x1, convertirY(y1));
+    ctx.lineTo(x2, convertirY(y2));
+
+    ctx.strokeStyle = color;
+    ctx.lineWidth = grosor;
+
+    ctx.stroke();
+}
