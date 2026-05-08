@@ -156,9 +156,49 @@ function cohenSutherland(x1, y1, x2, y2) {
             // ABAJO
             else if (codigoExterno & BOTTOM) {
 
-}
+                x = x1 + (x2 - x1) * (ymax - y1) / (y2 - y1);
+                y = ymax;
+            }
+
+            // DERECHA
+            else if (codigoExterno & RIGHT) {
+
+                y = y1 + (y2 - y1) * (xmax - x1) / (x2 - x1);
+                x = xmax;
+            }
+
+            // IZQUIERDA
+            else if (codigoExterno & LEFT) {
+
+                y = y1 + (y2 - y1) * (xmin - x1) / (x2 - x1);
+                x = xmin;
+            }
+
+            // REEMPLAZAR PUNTO
+            if (codigoExterno === codigo1) {
+
+                x1 = x;
+                y1 = y;
+
+                codigo1 = calcularCodigo(x1, y1);
+            }
+            else {
+
+                x2 = x;
+                y2 = y;
+
+                codigo2 = calcularCodigo(x2, y2);
+            }
         }
     }
+
+    return {
+        aceptada,
+        x1,
+        y1,
+        x2,
+        y2
+    };
 }
 // mostrar la escena 
 function mostrarEscena() {
