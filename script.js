@@ -201,3 +201,47 @@ function mostrarEscena() {
 
     document.getElementById("infoCaso").innerText = escena.nombre;
 }
+
+// se añade la funcion siguientEscena para evaluar cada caso y mostrar el resultado del algoritmo de Cohen Sutherland, 
+// se añade la funcion anteriorEscena para volver a la escena anterior y evaluar el resultado del algoritmo en cada caso.
+function siguienteEscena() {
+
+    indiceEscena++;
+
+    if (indiceEscena >= escenas.length) {
+        indiceEscena = 0;
+    }
+
+    mostrarEscena();
+}
+
+function anteriorEscena() {
+
+    indiceEscena--;
+
+    if (indiceEscena < 0) {
+        indiceEscena = escenas.length - 1;
+    }
+
+    mostrarEscena();
+}
+
+// =====================================================
+// ACTUALIZAR VIEWPORT
+// =====================================================
+
+function actualizarViewport() {
+
+    xmin = parseInt(document.getElementById("xmin").value);
+    ymin = parseInt(document.getElementById("ymin").value);
+    xmax = parseInt(document.getElementById("xmax").value);
+    ymax = parseInt(document.getElementById("ymax").value);
+
+    mostrarEscena();
+}
+
+// =====================================================
+// INICIO
+// =====================================================
+
+mostrarEscena();
