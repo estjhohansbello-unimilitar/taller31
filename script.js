@@ -250,24 +250,28 @@ function mostrarEscena() {
 
     const escena = escenas[indiceEscena];
 
-    // Línea original
+    // GENERAR LÍNEA DINÁMICA
+    const linea = obtenerLineaSegunCaso(escena.tipo);
+
+    // LÍNEA ORIGINAL
     dibujarLinea(
-        escena.x1,
-        escena.y1,
-        escena.x2,
-        escena.y2,
+        linea.x1,
+        linea.y1,
+        linea.x2,
+        linea.y2,
         "red",
         1
     );
 
-    // Línea recortada
+    // RECORTE
     const resultado = cohenSutherland(
-        escena.x1,
-        escena.y1,
-        escena.x2,
-        escena.y2
+        linea.x1,
+        linea.y1,
+        linea.x2,
+        linea.y2
     );
 
+    // LÍNEA RECORTADA
     if (resultado.aceptada) {
 
         dibujarLinea(
