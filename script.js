@@ -18,42 +18,27 @@ const escenas = [
 
     {
         nombre: "Caso 1: Línea completamente dentro",
-        x1: 200,
-        y1: 150,
-        x2: 350,
-        y2: 250
+        tipo: "dentro"
     },
 
     {
         nombre: "Caso 2: Línea completamente fuera",
-        x1: 20,
-        y1: 20,
-        x2: 80,
-        y2: 70
+        tipo: "fuera"
     },
 
     {
-        nombre: "Caso 3: Línea entrando por la izquierda",
-        x1: 50,
-        y1: 180,
-        x2: 300,
-        y2: 180
+        nombre: "Caso 3: Línea entrando por izquierda",
+        tipo: "izquierda"
     },
 
     {
-        nombre: "Caso 4: Línea entrando por la derecha",
-        x1: 300,
-        y1: 220,
-        x2: 600,
-        y2: 220
+        nombre: "Caso 4: Línea entrando por derecha",
+        tipo: "derecha"
     },
 
     {
         nombre: "Caso 5: Línea atravesando viewport",
-        x1: 50,
-        y1: 50,
-        x2: 600,
-        y2: 350
+        tipo: "atravesando"
     }
 ];
 
@@ -199,6 +184,62 @@ function cohenSutherland(x1, y1, x2, y2) {
         x2,
         y2
     };
+} 
+// se agrega una nueva funcion para obtener las coordenadas de la linea segun el caso a evaluar, esta funcion se utiliza para cada escena y se muestra el resultado del algoritmo de Cohen Sutherland en cada caso. 
+function obtenerLineaSegunCaso(tipo) {
+
+    switch (tipo) {
+
+        // COMPLETAMENTE DENTRO
+        case "dentro":
+
+            return {
+                x1: xmin + 50,
+                y1: ymin + 50,
+                x2: xmax - 50,
+                y2: ymax - 50
+            };
+
+        // COMPLETAMENTE FUERA
+        case "fuera":
+
+            return {
+                x1: xmin - 120,
+                y1: ymin - 120,
+                x2: xmin - 40,
+                y2: ymin - 40
+            };
+
+        // ENTRANDO POR IZQUIERDA
+        case "izquierda":
+
+            return {
+                x1: xmin - 120,
+                y1: (ymin + ymax) / 2,
+                x2: xmin + 120,
+                y2: (ymin + ymax) / 2
+            };
+
+        // ENTRANDO POR DERECHA
+        case "derecha":
+
+            return {
+                x1: xmax - 120,
+                y1: (ymin + ymax) / 2,
+                x2: xmax + 120,
+                y2: (ymin + ymax) / 2
+            };
+
+        // ATRAVESANDO VIEWPORT
+        case "atravesando":
+
+            return {
+                x1: xmin - 100,
+                y1: ymin - 100,
+                x2: xmax + 100,
+                y2: ymax + 100
+            };
+    }
 }
 // mostrar la escena 
 function mostrarEscena() {
