@@ -1,11 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Taller 31 Cohen Sutherland</title>
+    // Vinculación del archivo CSS para estilos 
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+
+    <h1>Algoritmo de Cohen-Sutherland</h1>
+
+    <div class="contenedor">
+
+        <div class="panel">
+            <h2>Viewport</h2>
+
+            <label>xmin</label>
+            <input type="number" id="xmin" value="150">
+
+            <label>ymin</label>
+            <input type="number" id="ymin" value="100">
+
+            <label>xmax</label>
+            <input type="number" id="xmax" value="450">
+
+            <label>ymax</label>
+            <input type="number" id="ymax" value="300">
+
+            <button onclick="actualizarViewport()">
+                Actualizar Viewport
+            </button>
+
+            <hr>
+
+            <h2>Navegación</h2>
+
+            <button onclick="anteriorEscena()">
+                Anterior
+            </button>
+
+            <button onclick="siguienteEscena()">
+                Siguiente
+            </button>
+
+            <p id="infoCaso"></p>
+        </div>
+
+        <canvas id="canvas" width="700" height="450"></canvas>
+
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
